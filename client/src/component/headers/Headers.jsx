@@ -1,7 +1,9 @@
-import styles from './Header.module.css'; 
+import { Link, Outlet } from "react-router-dom";
+import styles from './Header.module.css';
 
 const Header = ({ loggedIn }) => {
-    return (
+  return (
+    <>
       <header className={styles.header}>
         <div className={styles.left}>
           <div className={styles.logo}>My news</div>
@@ -9,7 +11,7 @@ const Header = ({ loggedIn }) => {
         <div className={styles.center}>
           <nav className={styles.navLinks}>
             <a href="/" className={styles.link}>Home</a>
-            <a href="/add-news" className={styles.link}>Add News</a>
+            <Link to="/add-news" className={styles.link}>Add News</Link>
             <a href="/all-news" className={styles.link}>All News</a>
             {/* Add more links as needed */}
           </nav>
@@ -19,13 +21,14 @@ const Header = ({ loggedIn }) => {
             <button className={styles.logout}>Logout</button>
           ) : (
             <>
-              <button className={styles.login}>Login</button>
-              <button className={styles.register}>Register</button>
+              <Link to="/login" className={styles.login}>Login</Link>
+              <Link to="/register" className={styles.register}>Register</Link>
             </>
           )}
         </div>
       </header>
-    );
-  };
-  
-  export default Header;
+    </>
+  );
+};
+
+export default Header;
