@@ -2,8 +2,8 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import AddNews from "./component/add-news/AddNews"
 import Header from "./component/headers/Headers"
-import Login from "./component/headers/login/Login"
-import Register from "./component/headers/register/Register"
+import Login from "./component/login/Login"
+import Register from "./component/register/Register"
 
 function App() {
 
