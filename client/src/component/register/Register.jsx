@@ -1,31 +1,27 @@
-// RegistrationForm.js
-
-import React, { useState } from 'react';
+import { useContext } from "react";
 import styles from './register.module.css';
+import AuthContext from '../../contexts/authContext';
+import useForm from '../../hooks/useForm';
+
+const RegisterFormKeys = {
+    Username: 'username',
+    Email: 'email',
+    Password: 'password',
+    ConfirmPassword: 'confirmPassword',
+};
 
 const Register = () => {
-    const [formData, setFormData] = useState({
-        username: '',
-        email: '',
-        password: ''
+    const { registerSubmitHandler } = useContext(AuthContext);
+    const { values, onChange, onSubmit } = useForm(registerSubmitHandler, {
+        [RegisterFormKeys.Username]: '',
+        [RegisterFormKeys.Email]: '',
+        [RegisterFormKeys.Password]: '',
+        [RegisterFormKeys.ConfirmPassword]: '',
     });
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission - You can send formData to your backend here
-        console.log('Form submitted:', formData);
-        // Reset form fields after submission
-        setFormData({ username: '', email: '', password: '' });
-    };
 
     return (
         <div className={styles.formContainer}>
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form className={styles.form} onSubmit={onSubmit}>
                 <h2>Register</h2>
                 <div className={styles.formGroup}>
                     <label htmlFor="username">Username</label>
@@ -33,8 +29,8 @@ const Register = () => {
                         type="text"
                         id="username"
                         name="username"
-                        value={formData.username}
-                        onChange={handleChange}
+                        value={values[RegisterFormKeys.Username]}
+                        onChange={onChange}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -43,8 +39,8 @@ const Register = () => {
                         type="email"
                         id="email"
                         name="email"
-                        value={formData.email}
-                        onChange={handleChange}
+                        value={values[RegisterFormKeys.Email]}
+                        onChange={onChange}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -53,8 +49,8 @@ const Register = () => {
                         type="password"
                         id="password"
                         name="password"
-                        value={formData.password}
-                        onChange={handleChange}
+                        value={values[RegisterFormKeys.Password]}
+                        onChange={onChange}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -63,8 +59,8 @@ const Register = () => {
                         type="password"
                         id="confirmPassword"
                         name="confirmPassword"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
+                        value={values[RegisterFormKeys.ConfirmPassword]}
+                        onChange={onChange}
                     />
                 </div>
                 <button type="submit" className={styles.submitButton}>Register</button>

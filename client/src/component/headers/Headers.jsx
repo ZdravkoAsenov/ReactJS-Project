@@ -1,7 +1,14 @@
 import { Link, Outlet } from "react-router-dom";
 import styles from './Header.module.css';
+import { useContext } from "react";
+import AuthContext from "../../contexts/authContext";
+import Path from "../../paths";
 
 const Header = ({ loggedIn }) => {
+  const {
+    isAuthenticated,
+    username,
+  } = useContext(AuthContext);
   return (
     <>
       <header className={styles.header}>
@@ -10,19 +17,19 @@ const Header = ({ loggedIn }) => {
         </div>
         <div className={styles.center}>
           <nav className={styles.navLinks}>
-            <a href="/" className={styles.link}>Home</a>
-            <Link to="/add-news" className={styles.link}>Add News</Link>
+            <a href={Path.Home} className={styles.link}>Home</a>
+            <Link to={Path.AddNews} className={styles.link}>Add News</Link>
             <a href="/all-news" className={styles.link}>All News</a>
             {/* Add more links as needed */}
           </nav>
         </div>
         <div className={styles.right}>
-          {loggedIn ? (
-            <button className={styles.logout}>Logout</button>
+          {isAuthenticated ? (
+            <Link to={Path.Logout} className={styles.logout}>Logout</Link>
           ) : (
             <>
-              <Link to="/login" className={styles.login}>Login</Link>
-              <Link to="/register" className={styles.register}>Register</Link>
+              <Link to={Path.Login} className={styles.login}>Login</Link>
+              <Link to={Path.Register} className={styles.register}>Register</Link>
             </>
           )}
         </div>
