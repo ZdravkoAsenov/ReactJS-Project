@@ -1,5 +1,3 @@
-// NewsList.js
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './NewsList.module.css';
@@ -22,7 +20,7 @@ const NewsList = () => {
             <ul className={styles.newsList}>
                 {news.map((item) => (
                     <li key={item._id} className={styles.newsItem}>
-                        <Link to={`/news/${item.id}`} className={styles.newsLink}>
+                        <Link to={`/news/${item._id}`} className={styles.newsLink}>
                             <h3 className={styles.newsHeader}>{item.title}</h3>
                         </Link>
                         <p className={styles.newsContent}>{item.content}</p>
