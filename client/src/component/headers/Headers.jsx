@@ -19,8 +19,7 @@ const Header = ({ loggedIn }) => {
           <nav className={styles.navLinks}>
             <a href={Path.Home} className={styles.link}>Home</a>
             <Link to={Path.AddNews} className={styles.link}>Add News</Link>
-            <a href="/all-news" className={styles.link}>All News</a>
-            {/* Add more links as needed */}
+            <Link to={Path.ListNews} className={styles.link}>All News</Link>
           </nav>
         </div>
         <div className={styles.right}>
