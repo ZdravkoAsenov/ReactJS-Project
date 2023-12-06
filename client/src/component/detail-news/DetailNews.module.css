@@ -1,0 +1,14 @@
+/* DetailNews.module.css */
+
+.editLink,
+.deleteLink {
+  display: inline-block;
+  margin-right: 10px;
+  color: blue; /* Example color */
+  text-decoration: none;
+}
+
+.editLink:hover,
+.deleteLink:hover {
+  text-decoration: underline;
+}

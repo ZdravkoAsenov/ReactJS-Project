@@ -25,3 +25,5 @@ export const edit =  async (newsId, newsData) => {
 
     return result;
 };
+
+export const remove = async (gameId) => request.remove(`${baseUrl}/${gameId}`);

@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import * as newsService from '../../services/newsService';
+import styles from './DetailNews.module.css';
+import AuthContext from '../../contexts/authContext';
 
 const DetailNews = () => {
     const { id } = useParams();
-    const [newsItem, setNewsItem] = useState({});
+    const { email, userId } = useContext(AuthContext);
+    const [news, setNewsItem] = useState({});
 
     useEffect(() => {
         newsService.getOne(id)
@@ -16,18 +19,24 @@ const DetailNews = () => {
 
     return (
         <div>
-            {newsItem ? (
+            {news ? (
                 <div>
-                    <h2>{newsItem.title}</h2>
-                    <p>{newsItem.content}</p>
-                    <img src={newsItem.imageLink} />
-                    <Link to={`/news/${item._id}/edit`} className={styles.readLink}>
-                        Edit
-                    </Link>
-                    <Link to={`/news/${item._id}/edit`} className={styles.readLink}>
-                        Delete
-                    </Link>
+                    <h2>{news.title}</h2>
+                    <p>{news.content}</p>
+                    <img src={news.imageLink} />
+                    {userId === news._ownerId && (
+                        <>
+                            <Link to={`/news/${news._id}/edit`} className={styles.editLink}>
+                                Edit
+                            </Link>
+                            <Link to={`/news/${news._id}/delete`} className={styles.deleteLink}>
+                                Delete
+                            </Link>
+                        </>
+                    )}
                 </div>
+
+                
             ) : (
                 <p>Loading...</p>
             )}
