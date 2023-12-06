@@ -10,6 +10,9 @@ import Path from './paths';
 import { AuthProvider } from './contexts/authContext';
 import Home from './component/home/Home';
 import Logout from './component/logout/Logout';
+import NewsList from './component/news -list/NewsList';
+import DetailNews from './component/detail-news/DetailNews';
+import EditNews from './component/edit-news/EditNews';
 
 function App() {
 
@@ -24,6 +27,10 @@ function App() {
                     <Route path={Path.Register} element={<Register />} />
                     <Route path={Path.Logout} element={<Logout />} />
                     <Route path={Path.AddNews} element={< AddNews />} />
+                    <Route path={Path.ListNews} element={< NewsList />} />
+                    <Route path={Path.DetailNews} element={< DetailNews />} />
+                    <Route path={Path.EditNews} element={< EditNews />} />
+                    <Route path={Path.DeleteNews} element={< DeleteNews />} />
                 </Routes>
             </AuthProvider>
         </>
