@@ -1,0 +1,16 @@
+.editForm {
+    margin-bottom: 20px;
+  }
+  
+  input,
+  textarea,
+  button {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .backLink {
+    display: block;
+    margin-top: 20px;
+  }
+  
