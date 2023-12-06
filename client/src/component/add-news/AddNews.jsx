@@ -1,31 +1,38 @@
-// AddNewsForm.js
 
 import React, { useState } from 'react';
-import styles from './/addNews.module.css'; // Import CSS module
+import styles from './/addNews.module.css';
+import * as newsService from '../../services/newsService'
+import useForm from '../../hooks/useForm';
+import { useNavigate } from 'react-router-dom';
+import Path from '../../paths';
+
+const AddNewsFormKeys = {
+    Title: 'title',
+    Content: 'content',
+    ImageLink: 'imageLink',
+}
 
 const AddNews = () => {
-    const [newsData, setNewsData] = useState({
-        title: '',
-        content: '',
-        imageLink: '' // New state for image link
+    const navigate = useNavigate();
+    const { values, onChange, onSubmit } = useForm(handleSubmit, {
+        [AddNewsFormKeys.Title]: '',
+        [AddNewsFormKeys.Content]: '',
+        [AddNewsFormKeys.ImageLink]: '',
     });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setNewsData({ ...newsData, [name]: value });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission - You can send newsData to your backend here
-        console.log('News submitted:', newsData);
-        // Reset form fields after submission
-        setNewsData({ title: '', content: '', imageLink: '' });
-    };
+    async function handleSubmit() {
+        try {
+          await newsService.create(values);
+          navigate(Path.ListNews);
+        } catch (error) {
+          // Handle error if necessary
+          console.error('Error creating news:', error);
+        }
+      }
 
     return (
         <div className={styles.formContainer}>
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form className={styles.form} onSubmit={onSubmit}>
                 <h2>Add News</h2>
                 <div className={styles.formGroup}>
                     <label htmlFor="title">Title</label>
@@ -33,8 +40,8 @@ const AddNews = () => {
                         type="text"
                         id="title"
                         name="title"
-                        value={newsData.title}
-                        onChange={handleChange}
+                        value={values[AddNewsFormKeys.Title]}
+                        onChange={onChange}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -42,8 +49,8 @@ const AddNews = () => {
                     <textarea
                         id="content"
                         name="content"
-                        value={newsData.content}
-                        onChange={handleChange}
+                        value={values[AddNewsFormKeys.Content]}
+                        onChange={onChange}
                         rows="6"
                     ></textarea>
                 </div>
@@ -53,8 +60,8 @@ const AddNews = () => {
                         type="text"
                         id="imageLink"
                         name="imageLink"
-                        value={newsData.imageLink}
-                        onChange={handleChange}
+                        value={values[AddNewsFormKeys.ImageLink]}
+                        onChange={onChange}
                     />
                 </div>
                 <button type="submit" className={styles.submitButton}>Add News</button>
