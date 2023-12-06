@@ -13,6 +13,7 @@ import Logout from './component/logout/Logout';
 import NewsList from './component/news -list/NewsList';
 import DetailNews from './component/detail-news/DetailNews';
 import EditNews from './component/edit-news/EditNews';
+import DeleteNews from './component/delete-news/DeleteNews';
 
 function App() {
 

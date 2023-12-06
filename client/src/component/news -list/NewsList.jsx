@@ -21,7 +21,7 @@ const NewsList = () => {
             <h2 className={styles.newsTitle}>All News</h2>
             <ul className={styles.newsList}>
                 {news.map((item) => (
-                    <li key={item.id} className={styles.newsItem}>
+                    <li key={item._id} className={styles.newsItem}>
                         <Link to={`/news/${item.id}`} className={styles.newsLink}>
                             <h3 className={styles.newsHeader}>{item.title}</h3>
                         </Link>
