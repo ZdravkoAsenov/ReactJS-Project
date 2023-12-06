@@ -4,6 +4,10 @@ const Path = {
     Login: '/login',
     Register: '/register',
     AddNews: '/add-news',
+    ListNews: '/list-news',
+    DetailNews: '/news/:id',
+    EditNews: '/news/:id/edit',
+    DeleteNews: '/news/:id/delete',
 };
 
 export default Path;
