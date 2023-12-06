@@ -1,58 +1,92 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import * as newsService from '../../services/newsService';
+import useForm from '../../hooks/useForm';
 import styles from './EditNews.module.css';
 
-const EditNews = () => {
-  const { id } = useParams();
-  const [newsItem, setNewsItem] = useState({});
-  const [editedTitle, setEditedTitle] = useState('');
-  const [editedContent, setEditedContent] = useState('');
+const EditNewsFormKeys = {
+    Title: 'title',
+    Content: 'content',
+    ImageLink: 'imageLink',
+}
 
-  useEffect(() => {
-    newsService.getOne(id)
-      .then(result => {
-        setNewsItem(result);
-        setEditedTitle(result.title);
-        setEditedContent(result.content);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, [id]);
+const DetailNews = () => {
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const [news, setNews] = useState({
+        [EditNewsFormKeys.Title]: '',
+        [EditNewsFormKeys.Content]: '',
+        [EditNewsFormKeys.ImageLink]: '',
+    });
 
-  const handleUpdate = () => {
-    // Perform update logic using editedTitle and editedContent
-    // For example:
-    newsService.update(id, { title: editedTitle, content: editedContent })
-      .then(updatedNews => {
-        setNewsItem(updatedNews);
-        // Redirect to news detail page after update
-        // history.push(`/news/${id}`);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+    useEffect(() => {
+        newsService.getOne(id)
+            .then(result => {
+                setNews(result);
+            });
+    }, [id]);
 
-  return (
-    <div>
-      <h2>Edit News</h2>
-      <div className={styles.editForm}>
-        <input
-          type="text"
-          value={editedTitle}
-          onChange={(e) => setEditedTitle(e.target.value)}
-        />
-        <textarea
-          value={editedContent}
-          onChange={(e) => setEditedContent(e.target.value)}
-        ></textarea>
-        <button onClick={handleUpdate}>Update</button>
-      </div>
-      <Link to={`/news/${id}`} className={styles.backLink}>Back to News</Link>
-    </div>
-  );
+    const editNewsSubmitHandler = async (e) => {
+        e.preventDefault();
+
+        const values = Object.fromEntries(new FormData(e.currentTarget));
+
+        try {
+            await newsService.edit(id, values);
+
+            navigate(`/news/${id}`);
+        } catch (err) {
+            // Error notification
+            console.log(err);
+        }
+    }
+
+    const onChange = (e) => {
+        setNews(state => ({
+            ...state,
+            [e.target.name]: e.target.value
+        }));
+    };
+
+
+    return (
+        <div className={styles.formContainer}>
+            <form className={styles.form} onSubmit={editNewsSubmitHandler}>
+                <h2>Add News</h2>
+                <div className={styles.formGroup}>
+                    <label htmlFor="title">Title</label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        value={news.title}
+                        onChange={onChange}
+                    />
+                </div>
+                <div className={styles.formGroup}>
+                    <label htmlFor="content">Content</label>
+                    <textarea
+                        id="content"
+                        name="content"
+                        value={news.content}
+                        onChange={onChange}
+                        rows="6"
+                    ></textarea>
+                </div>
+                <div className={styles.formGroup}>
+                    <label htmlFor="imageLink">Image Link</label>
+                    <input
+                        type="text"
+                        id="imageLink"
+                        name="imageLink"
+                        value={news.imageLink}
+                        onChange={onChange}
+                    />
+                </div>
+                <button type="submit" className={styles.submitButton}>Add News</button>
+            </form>
+        </div>
+    );
 };
 
-export default EditNews;
+export default DetailNews;
