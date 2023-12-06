@@ -1,0 +1,13 @@
+.deleteActions {
+    margin-top: 20px;
+  }
+  
+  button {
+    margin-right: 10px;
+  }
+  
+  .cancelLink {
+    text-decoration: none;
+    color: #333;
+  }
+  
