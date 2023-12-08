@@ -8,6 +8,7 @@ const Path = {
     DetailNews: '/news/:id',
     EditNews: '/news/:id/edit',
     DeleteNews: '/news/:id/delete',
+    UserDetail: '/user/detail',
 };
 
 export default Path;

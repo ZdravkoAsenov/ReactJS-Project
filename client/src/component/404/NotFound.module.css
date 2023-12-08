@@ -1,0 +1,32 @@
+/* NotFound.module.css */
+
+.notFoundContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .notFoundContainer h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+  }
+  
+  .notFoundContainer p {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .notFoundContainer a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .notFoundContainer a:hover {
+    text-decoration: underline;
+  }
+  
