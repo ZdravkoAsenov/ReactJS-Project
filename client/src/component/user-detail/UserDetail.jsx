@@ -5,15 +5,15 @@ import AuthContext from '../../contexts/authContext';
 import styles from './UserDetails.module.css';
 
 const UserDetails = () => {
-    const { userId } = useParams();
     const [userNews, setUserNews] = useState([]);
     const {
         email,
         username,
+        userId,
     } = useContext(AuthContext);
 
     useEffect(() => {
-        // Fetch news items created by the user
+
         newsService.getNewsByUserId(userId)
             .then(newsData => setUserNews(newsData))
             .catch(err => {
@@ -28,17 +28,22 @@ const UserDetails = () => {
             <p>Email: {email}</p>
 
             <h2>News Created by {username}</h2>
-            <ul>
-                {userNews.map(news => (
-                    <li key={news._id}>
-                        <h3>{news.title}</h3>
-                        <p>{news.content}</p>
-                        <Link to={`/news/${news._id}`}>
-                                Read
-                            </Link>
-                    </li>
-                ))}
-            </ul>
+            {userNews.length === 0 ? (
+                 <ul>
+                 {userNews.map(news => (
+                     <li key={news._id}>
+                         <h3>{news.title}</h3>
+                         <p>{news.content}</p>
+                         <Link to={`/news/${news._id}`}>
+                                 Read
+                             </Link>
+                     </li>
+                 ))}
+             </ul>
+            ) : (
+                <h3>No news</h3>
+            )}
+           
         </div>
     );
 };

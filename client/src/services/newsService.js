@@ -20,7 +20,6 @@ export const getNewsByUserId = async (newsId) => {
     });
 
     const result = await request.get(`${baseUrl}?${query}`);
-    console.log(result);
 
     return result.filter(comment => comment.newsId === newsId)
 };
