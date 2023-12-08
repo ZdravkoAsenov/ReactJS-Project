@@ -14,14 +14,10 @@ export const getOne = async (newsId) => {
     return result;
 }
 
-export const getNewsByUserId = async (newsId) => {
-    const query = new URLSearchParams({
-        load: `owner=_ownerId:users`
-    });
+export const getNewsByUserId = async (userId) => {
+    const result = await request.get(baseUrl);
 
-    const result = await request.get(`${baseUrl}?${query}`);
-
-    return result.filter(comment => comment.newsId === newsId)
+    return result.filter(news => news._ownerId === userId)
 };
 
 export const getLatest = async () => {

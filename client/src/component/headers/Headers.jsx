@@ -8,6 +8,7 @@ const Header = ({ loggedIn }) => {
     const {
         isAuthenticated,
         username,
+        userId,
     } = useContext(AuthContext);
     return (
         <>

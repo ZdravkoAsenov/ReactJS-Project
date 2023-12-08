@@ -28,7 +28,6 @@ const UserDetails = () => {
             <p>Email: {email}</p>
 
             <h2>News Created by {username}</h2>
-            {userNews.length === 0 ? (
                  <ul>
                  {userNews.map(news => (
                      <li key={news._id}>
@@ -39,11 +38,7 @@ const UserDetails = () => {
                              </Link>
                      </li>
                  ))}
-             </ul>
-            ) : (
-                <h3>No news</h3>
-            )}
-           
+             </ul> 
         </div>
     );
 };
