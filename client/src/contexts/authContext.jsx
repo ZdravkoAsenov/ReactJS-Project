@@ -14,16 +14,34 @@ export const AuthProvider = ({
     const [auth, setAuth] = usePersistedState('auth', {});
 
     const loginSubmitHandler = async (values) => {
-        const result = await authService.login(values.email, values.password);
+        if (values.email.trim() === '' && values.password.trim() === '') {
+            confirm(`You must fill in the news information.`);
+            return;
+        }
+        try {
 
-        setAuth(result);
+            const result = await authService.login(values.email, values.password);
+            
+            setAuth(result);
 
-        localStorage.setItem('accessToken', result.accessToken);
+            localStorage.setItem('accessToken', result.accessToken);
 
-        navigate(Path.Home);
+            navigate(Path.Home);
+        } catch (error) {
+            confirm(`You have entered invalid login information.`)
+        }
     }
 
     const registerSubmitHandler = async (values) => {
+        if (values.email.trim() === '' && values.password.trim() === '' && values.username.trim() === '' && values.confirmPassword.trim() === '') {
+            confirm(`You must fill in the news information.`);
+            return;
+        }
+
+        if (values.password.trim() !== values.confirmPassword.trim()) {
+            confirm(`The passwords are not the same.`);
+            return;
+        }
         const result = await authService.register(values.email, values.password, values.username);
 
         setAuth(result);

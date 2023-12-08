@@ -18,17 +18,21 @@ const DetailNews = () => {
         newsService.getOne(newsId)
             .then(result => setNewsItem(result));
 
-            commentService.getAll(newsId)
+        commentService.getAll(newsId)
             .then((result) => {
                 dispatch({
                     type: 'GET_ALL_COMMENTS',
                     payload: result,
                 });
             });
-            
+
     }, [newsId]);
 
     const addCommentHandler = async (values) => {
+        if (values.comment.trim() === '') {
+            confirm(`You have not entered a comment.`)
+            return;
+        }
         const newComment = await commentService.create(
             newsId,
             values.comment
@@ -47,29 +51,32 @@ const DetailNews = () => {
     });
 
     return (
-        <div>
+        <div className={styles.detailContainer}>
             {news ? (
                 <div>
+                    <div className={styles.newsContainer}>
 
-                    <h2>{news.title}</h2>
-                    <p>{news.content}</p>
-                    <img src={news.imageLink} />
-                    {userId === news._ownerId && (
-                        <>
-                            <Link to={`/news/${news._id}/edit`} className={styles.editLink}>
-                                Edit
-                            </Link>
-                            <Link to={`/news/${news._id}/delete`} className={styles.deleteLink}>
-                                Delete
-                            </Link>
-                        </>
-                    )}
+                        <h2>{news.title}</h2>
+                        <img src={news.imageLink} />
+                        <p>{news.content}</p>
+                        {userId === news._ownerId && (
+                            <>
+                                <Link to={`/news/${news._id}/edit`} className={styles.editLink}>
+                                    Edit
+                                </Link>
+                                <Link to={`/news/${news._id}/delete`} className={styles.deleteLink}>
+                                    Delete
+                                </Link>
+                            </>
+                        )}
 
-                    <div className="details-comments">
+                    </div>
+
+                    <div className={styles.detailsComments}>
                         <h2>Comments:</h2>
                         <ul>
-                            {comments.map(({ _id, text, owner: { email } }) => (
-                                <li key={_id} className="comment">
+                            {comments.map(({ _id, text, owner: { username } }) => (
+                                <li key={_id} className={styles.comment}>
                                     <p>{username}: {text}</p>
                                 </li>
                             ))}
@@ -84,7 +91,7 @@ const DetailNews = () => {
                         <label>Add new comment:</label>
                         <form className="form" onSubmit={onSubmit}>
                             <textarea name="comment" value={values.comment} onChange={onChange} placeholder="Comment......"></textarea>
-                            <input className="btn submit" type="submit" value="Add Comment" />
+                            <input className={styles.submitButton} type="submit" value="Add Comment" />
                         </form>
                     </div>
                 </div>

@@ -14,14 +14,14 @@ const DeleteNews = () => {
     };
 
     return (
-        <div>
-            <h2>Delete News</h2>
-            <p>Are you sure you want to delete this news item?</p>
-            <div className={styles.deleteActions}>
-                <button onClick={handleDelete}>Delete</button>
-                <Link to={`/news/${id}`} className={styles.cancelLink}>Cancel</Link>
+            <div className={styles.deleteContainer}>
+                <h2>Delete News</h2>
+                <p>Are you sure you want to delete this news item?</p>
+                <div className={styles.deleteActions}>
+                    <button onClick={handleDelete}>Delete</button>
+                    <Link to={`/news/${id}`} className={styles.cancelLink}>Cancel</Link>
+                </div>
             </div>
-        </div>
     );
 };
 

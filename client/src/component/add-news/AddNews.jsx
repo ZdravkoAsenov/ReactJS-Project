@@ -21,11 +21,15 @@ const AddNews = () => {
     });
 
     async function handleSubmit() {
+        if (values.title.trim() === '' && values.content.trim() === '' && values.imageLink.trim() === '') {
+            confirm(`You must fill in the news information.`)
+            return;
+        }
+
         try {
           await newsService.create(values);
           navigate(Path.ListNews);
         } catch (error) {
-          // Handle error if necessary
           console.error('Error creating news:', error);
         }
       }

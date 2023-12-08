@@ -52,7 +52,7 @@ const DetailNews = () => {
     return (
         <div className={styles.formContainer}>
             <form className={styles.form} onSubmit={editNewsSubmitHandler}>
-                <h2>Add News</h2>
+                <h2>Edit News</h2>
                 <div className={styles.formGroup}>
                     <label htmlFor="title">Title</label>
                     <input
@@ -83,7 +83,7 @@ const DetailNews = () => {
                         onChange={onChange}
                     />
                 </div>
-                <button type="submit" className={styles.submitButton}>Add News</button>
+                <button type="submit" className={styles.submitButton}>Edit News</button>
             </form>
         </div>
     );
