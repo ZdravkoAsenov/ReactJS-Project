@@ -26,7 +26,10 @@ const Header = ({ loggedIn }) => {
                 </div>
                 <div className={styles.right}>
                     {isAuthenticated ? (
-                        <Link to={Path.Logout} className={styles.logout}>Logout</Link>
+                        <>
+                            <Link to={Path.Logout} className={styles.logout}>Logout</Link>
+                            <Link to={Path.UserDetail} className={styles.register}>{username}</Link>
+                        </>
                     ) : (
                         <>
                             <Link to={Path.Login} className={styles.login}>Login</Link>

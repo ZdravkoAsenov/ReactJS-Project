@@ -14,6 +14,8 @@ import NewsList from './component/news -list/NewsList';
 import DetailNews from './component/detail-news/DetailNews';
 import EditNews from './component/edit-news/EditNews';
 import DeleteNews from './component/delete-news/DeleteNews';
+import UserDetails from './component/user-detail/UserDetail';
+import NotFound from './component/404/404';
 
 function App() {
 
@@ -32,6 +34,8 @@ function App() {
                     <Route path={Path.DetailNews} element={< DetailNews />} />
                     <Route path={Path.EditNews} element={< EditNews />} />
                     <Route path={Path.DeleteNews} element={< DeleteNews />} />
+                    <Route path={Path.UserDetail} element={< UserDetails />} />
+                    <Route path='*' element={< NotFound />} />
                 </Routes>
             </AuthProvider>
         </>

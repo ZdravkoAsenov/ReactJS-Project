@@ -9,32 +9,35 @@ export const getAll = async () => {
 };
 
 export const getOne = async (newsId) => {
-    const result = await request.get(`${baseUrl}/${newsId}`, );
+    const result = await request.get(`${baseUrl}/${newsId}`,);
 
     return result;
 }
+
+export const getNewsByUserId = async (newsId) => {
+    const query = new URLSearchParams({
+        load: `owner=_ownerId:users`
+    });
+
+    const result = await request.get(`${baseUrl}?${query}`);
+    console.log(result);
+
+    return result.filter(comment => comment.newsId === newsId)
+};
 
 export const getLatest = async () => {
-    // const query = new URLSearchParams({
-    //     sortBy: `_createdOn desc`,
-    //     offset: 0,
-    //     pageSize: 3,
-    // });
-
-    const query = encodeURIComponent(`offset=0&pageSize=1`);
-    console.log(query);
-    const result = await request.get(`${baseUrl}?sortBy=_createdOn%20desc&${query}`);
+    const result = await request.get(`${baseUrl}?offset=0&pageSize=3&sortBy=_createdOn%20desc`);
 
     return result;
 }
 
-export const create =  async (newsData) => {
+export const create = async (newsData) => {
     const result = await request.post(baseUrl, newsData);
 
     return result;
 };
 
-export const edit =  async (newsId, newsData) => {
+export const edit = async (newsId, newsData) => {
     const result = await request.put(`${baseUrl}/${newsId}`, newsData);
 
     return result;
